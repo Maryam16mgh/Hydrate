@@ -6,13 +6,25 @@
 //
 
 import SwiftUI
+import UIKit
 
-struct PageControl: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+
+struct PageControl: UIViewRepresentable {
+    var numberOfPages: Int
+    var currentPage: Int
+    var pageIndicatorTintColor: UIColor
+    var currentPageIndicatorTintColor: UIColor
+
+    func makeUIView(context: Context) -> UIPageControl {
+        let pageControl = UIPageControl()
+        pageControl.numberOfPages = numberOfPages
+        pageControl.currentPage = currentPage
+        pageControl.pageIndicatorTintColor = pageIndicatorTintColor
+        pageControl.currentPageIndicatorTintColor = currentPageIndicatorTintColor
+        return pageControl
     }
-}
 
-#Preview {
-    PageControl()
+    func updateUIView(_ uiView: UIPageControl, context: Context) {
+        uiView.currentPage = currentPage
+    }
 }

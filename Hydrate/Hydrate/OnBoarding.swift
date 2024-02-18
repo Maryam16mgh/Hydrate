@@ -8,9 +8,10 @@ struct OnBoarding: View {
     @State public var endHour: String = ""
     @State private var isTextFieldEmpty: Bool = true // Track whether the TextField is empty or not
     @State private var showNextPage: Bool = false // Track whether to show the next onboarding page
-    @State private var waterIntake: Double = 0
+    @State var waterIntake: Double = 0
     // Track the calculated water intake based on weight
-    @State private var cups: Int = 0
+    @State var cups: Int = 0
+    
     private func calculateWaterIntake() {
             if let weightValue = Double(weight) {
                 waterIntake = weightValue * 0.03

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		18911AC22B7DFBB000A72585 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18911AC12B7DFBB000A72585 /* Media.xcassets */; };
+		18911AD22B81EF9100A72585 /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18911AD12B81EF9100A72585 /* PageControl.swift */; };
 		18A2BE042B7B528C00C947DD /* HydrateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A2BE032B7B528C00C947DD /* HydrateApp.swift */; };
 		18A2BE062B7B528C00C947DD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A2BE052B7B528C00C947DD /* ContentView.swift */; };
 		18A2BE082B7B528E00C947DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18A2BE072B7B528E00C947DD /* Assets.xcassets */; };
@@ -51,6 +52,7 @@
 
 /* Begin PBXFileReference section */
 		18911AC12B7DFBB000A72585 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		18911AD12B81EF9100A72585 /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
 		18A2BE002B7B528C00C947DD /* Hydrate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hydrate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18A2BE032B7B528C00C947DD /* HydrateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrateApp.swift; sourceTree = "<group>"; };
 		18A2BE052B7B528C00C947DD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				18A2BE2B2B7B538D00C947DD /* OnBoarding.swift */,
 				18A2BE2D2B7B53BB00C947DD /* LiterView.swift */,
 				18A2BE312B7B53E400C947DD /* CupsView.swift */,
+				18911AD12B81EF9100A72585 /* PageControl.swift */,
 				18A2BE072B7B528E00C947DD /* Assets.xcassets */,
 				18A2BE092B7B528E00C947DD /* Preview Content */,
 			);
@@ -253,6 +256,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18A2BE2E2B7B53BB00C947DD /* LiterView.swift in Sources */,
+				18911AD22B81EF9100A72585 /* PageControl.swift in Sources */,
 				18A2BE282B7B531F00C947DD /* SplashScreen.swift in Sources */,
 				18A2BE062B7B528C00C947DD /* ContentView.swift in Sources */,
 				18A2BE322B7B53E400C947DD /* CupsView.swift in Sources */,
