@@ -8,12 +8,16 @@ struct OnBoarding: View {
     @State public var endHour: String = ""
     @State private var isTextFieldEmpty: Bool = true // Track whether the TextField is empty or not
     @State private var showNextPage: Bool = false // Track whether to show the next onboarding page
-    @State private var waterIntake: Double = 0 // Track the calculated water intake based on weight
+    @State private var waterIntake: Double = 0
+    // Track the calculated water intake based on weight
+    @State private var cups: Int = 0
     private func calculateWaterIntake() {
             if let weightValue = Double(weight) {
                 waterIntake = weightValue * 0.03
+                cups = (Int)(waterIntake * 4.22675284)
             } else {
                 waterIntake = 0.0
+                
             }
         }
     var body: some View {
@@ -112,9 +116,9 @@ struct OnBoarding: View {
                                             .aspectRatio(contentMode: .fit)
                                             .frame(width: 42, height: 61)
                                 
-                                        Text("\(waterIntake * 4.22675284, specifier: "%.1f")")
+                                        Text("\(cups)")
                                             .padding(.top, 100)
-                                            .padding(.leading, -30)
+                                            .padding(.leading, -20)
                                         Text("Cups")
                                         .font(.caption)
                                         .foregroundColor(.textFont)
