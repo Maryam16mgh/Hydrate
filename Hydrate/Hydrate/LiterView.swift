@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LiterView: View {
+    @State private var selectedTabIndex = 0
     
     @Binding var waterIntake: Double
     @State var literDrink = 0.0
@@ -38,7 +39,7 @@ struct LiterView: View {
     
     
     var body: some View {
-        TabView{
+        TabView(selection: $selectedTabIndex){
             
             VStack{
                 VStack(alignment: .leading , spacing: 17){
@@ -53,90 +54,96 @@ struct LiterView: View {
 //                }.padding(.top , -150)
                 .padding(.leading , -150)
                 
-                ZStack{
-                    
+                ZStack {
                     Circle()
                         .stroke(lineWidth: 40)
                         .frame(width: 300 , height: 300)
                         .foregroundColor(.lightSkyBlue)
 
-                        Circle()
-                            .trim(from: 0.0 , to: CGFloat(literDrink / waterIntake))
-                            .stroke(style: StrokeStyle(lineWidth: 40, lineCap: .round) )
-                            .frame(width: 300 , height: 300)
-                            .rotationEffect(.degrees(-90))
-                            .foregroundStyle(LinearGradient(gradient: Gradient( colors:[.skyBlue]), startPoint: .topLeading , endPoint: .bottomTrailing))
-                            .animation(.linear(duration: 0.3)) // Animate the progress
+                    Circle()
+                        .trim(from: 0.0 , to: CGFloat(literDrink / waterIntake))
+                        .stroke(style: StrokeStyle(lineWidth: 40, lineCap: .round))
+                        .frame(width: 300 , height: 300)
+                        .rotationEffect(.degrees(-90))
+                        .foregroundStyle(LinearGradient(gradient: Gradient(colors:[.skyBlue]), startPoint: .topLeading , endPoint: .bottomTrailing))
+                        .animation(.linear(duration: 0.3)) // Animate the progress
 
-                    
-                    
-                                    
-                            let emojiAngle = 360 * (literDrink / waterIntake) - 90
-                            let emojiOffsetX = 150 * cos(emojiAngle * .pi / 180)
-                            let emojiOffsetY = 150 * sin(emojiAngle * .pi / 180)
+                    let emojiAngle = 360 * (literDrink / waterIntake) - 90
+                    let emojiOffsetX = 150 * cos(emojiAngle * .pi / 180)
+                    let emojiOffsetY = 150 * sin(emojiAngle * .pi / 180)
 
-                                    
                     Text(emoji)
-                               .font(.system(size: 40))
-                               .offset(x: emojiOffsetX , y: emojiOffsetY)
-                               .animation(.linear(duration: 0.3))
-                           
-                        
-                    
-                }.padding(.bottom , 90)
-                
-                HStack{
-                    Spacer()
-                    Button{
-                        if literDrink > 0.0 {
-                            literDrink -= 0.1
-                            if literDrink < 0.0 {
-                                literDrink = 0.0
-                            }
-                        }
-
-                    } label: {
-                        ZStack{
-                            Rectangle()
-                                .foregroundColor(.lightGrey)
-                                .cornerRadius(100)
-                                .frame(width: 50 , height: 50)
-                            
-                            Image(systemName: "minus")
-                                .padding(10)
-                                .foregroundColor(literDrink <= 0.0 ? .darkGrey : .skyBlue).bold()
-                                
-                        }
-                    }.disabled(literDrink <= 0.0)
-                    Spacer()
-                    Text("\(literDrink, specifier: "%.1f")")
-                        .font(.system(size: 34)).bold()
-                    Spacer()
-                    Button{
-                        if literDrink < waterIntake {
-                            literDrink += 0.1
-                            }
-
-                    } label: {
-                        
-                        ZStack{
-                            Rectangle()
-                                .foregroundColor(.lightGrey)
-                                .cornerRadius(100)
-                                .frame(width: 50 , height: 50)
-                            
-                            Image(systemName: "plus")
-                                .padding(10)
-                                .foregroundColor(literDrink >= waterIntake ? .darkGrey : .skyBlue).bold()
-                               
-                        }
-                        
-                    }.disabled(literDrink >= waterIntake)
-                    
-                    Spacer()
+                        .font(.system(size: 40))
+                        .offset(x: emoji == "🥳" ? 0 : emojiOffsetX, y: emoji == "🥳" ? 0 : emojiOffsetY)
+                        .animation(.linear(duration: 0.3))
                 }
+                .padding(.bottom , 90)
                 
-            }
+               
+                        VStack {
+                            HStack {
+                                Spacer()
+                                Button {
+                                    if literDrink > 0.0 {
+                                        literDrink -= 0.1
+                                        if literDrink < 0.0 {
+                                            literDrink = 0.0
+                                        }
+                                    }
+                                } label: {
+                                    ZStack {
+                                        Rectangle()
+                                            .foregroundColor(.lightGrey)
+                                            .cornerRadius(100)
+                                            .frame(width: 50, height: 50)
+
+                                        Image(systemName: "minus")
+                                            .padding(10)
+                                            .foregroundColor(literDrink <= 0.0 ? .darkGrey : .skyBlue).bold()
+                                    }
+                                }.disabled(literDrink <= 0.0)
+                                Spacer()
+                                
+                                // TextField for manual input
+                                TextField("Enter value", text: Binding<String>(
+                                    get: {  String(format: "%.1f", literDrink) },
+                                    set: {
+                                        if let value = Double($0) {
+                                            literDrink = value
+                                        }
+                                    }
+                                ))
+//                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .keyboardType(.decimalPad)
+                                .font(.system(size: 34)).bold()
+                                .multilineTextAlignment(.center)
+                                
+                                Spacer()
+                                
+                                Button {
+                                    if literDrink < waterIntake {
+                                        literDrink += 0.1
+                                    }
+                                } label: {
+                                    ZStack {
+                                        Rectangle()
+                                            .foregroundColor(.lightGrey)
+                                            .cornerRadius(100)
+                                            .frame(width: 50, height: 50)
+
+                                        Image(systemName: "plus")
+                                            .padding(10)
+                                            .foregroundColor(literDrink >= waterIntake ? .darkGrey : .skyBlue).bold()
+                                    }
+                                }.disabled(literDrink >= waterIntake)
+                                Spacer()
+                            }
+                            .padding()
+                        }
+                
+
+                
+            }.tag(0)
             
             
 ////////////////////// SECOND VIEW ///////////////////////////
@@ -144,7 +151,8 @@ struct LiterView: View {
             
             
             
-           CupsView()
+            CupsView(cups: .constant(20))
+                .tag(1)
             
             
             
@@ -159,7 +167,7 @@ struct LiterView: View {
             .overlay(
                 VStack {
                     Spacer()
-                    PageControl(numberOfPages: 2, currentPage: 0, pageIndicatorTintColor: .lightGrey, currentPageIndicatorTintColor: .skyBlue)
+                    PageControl(numberOfPages: 2, currentPage: selectedTabIndex, pageIndicatorTintColor: selectedTabIndex == 0 ? .lightGrey : .skyBlue, currentPageIndicatorTintColor: selectedTabIndex == 0 ? .skyBlue : .lightGrey)
                         .padding(.bottom, 10)
                         .frame(maxWidth: .infinity)
                         .background(Color.clear)
@@ -177,3 +185,55 @@ struct LiterView: View {
 #Preview {
     LiterView(waterIntake: .constant(2.1))
 }
+
+
+//HStack{
+//    Spacer()
+//    Button{
+//        if literDrink > 0.0 {
+//            literDrink -= 0.1
+//            if literDrink < 0.0 {
+//                literDrink = 0.0
+//            }
+//        }
+//
+//    } label: {
+//        ZStack{
+//            Rectangle()
+//                .foregroundColor(.lightGrey)
+//                .cornerRadius(100)
+//                .frame(width: 50 , height: 50)
+//            
+//            Image(systemName: "minus")
+//                .padding(10)
+//                .foregroundColor(literDrink <= 0.0 ? .darkGrey : .skyBlue).bold()
+//                
+//        }
+//    }.disabled(literDrink <= 0.0)
+//    Spacer()
+//    Text("\(literDrink, specifier: "%.1f")")
+//        .font(.system(size: 34)).bold()
+//    Spacer()
+//    Button{
+//        if literDrink < waterIntake {
+//            literDrink += 0.1
+//            }
+//
+//    } label: {
+//        
+//        ZStack{
+//            Rectangle()
+//                .foregroundColor(.lightGrey)
+//                .cornerRadius(100)
+//                .frame(width: 50 , height: 50)
+//            
+//            Image(systemName: "plus")
+//                .padding(10)
+//                .foregroundColor(literDrink >= waterIntake ? .darkGrey : .skyBlue).bold()
+//               
+//        }
+//        
+//    }.disabled(literDrink >= waterIntake)
+//    
+//    Spacer()
+//}
