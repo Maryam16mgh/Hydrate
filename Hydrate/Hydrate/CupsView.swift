@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CupsView: View {
-    @Binding var cups: Int
+     var cupsNeed: Int
     @State var cupsDrink = 0
     
     @State private var isImage1Visible = Array(repeating: true, count: 20)
@@ -20,7 +20,7 @@ struct CupsView: View {
                     .font(.system(size: 16))
                     .foregroundColor(.textFont)
                 
-                Text("\(cupsDrink) cups / \(cups) cups")
+                Text("\(cupsDrink) cups / \(cupsNeed) cups")
                     .font(.system(size: 28))
                     .foregroundColor(.tittleFont).bold()
             }.padding(.top , 60)
@@ -28,7 +28,7 @@ struct CupsView: View {
             
             ScrollView {
                 LazyVGrid(columns: Array(repeating: GridItem(), count: 4), spacing: 10) {
-                    ForEach(0..<cups, id: \.self) { index in
+                    ForEach(0..<cupsNeed, id: \.self) { index in
                         Button(action: {
                             if isImage1Visible[index] {
                                 isImage1Visible[index].toggle()
@@ -65,7 +65,7 @@ struct CupsView: View {
     
 
 #Preview {
-    CupsView(cups: .constant(20))
+    CupsView(cupsNeed: 20)
 }
 
 

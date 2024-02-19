@@ -10,16 +10,16 @@ import SwiftUI
 struct LiterView: View {
     @State private var selectedTabIndex = 0
     
-    @Binding var waterIntake: Double
+    var literNeed: Double
     @State var literDrink = 0.0
     
-    @State var cupsNeed = 20
+//    var cupsNeed: Int
     @State var cupsDrink = 0
-    
+    var cupSend: Int 
     @State private var isAnimating = false
     
      var emoji: String {
-            let emojiProgress = literDrink / waterIntake
+            let emojiProgress = literDrink / literNeed
 
             switch emojiProgress {
             case 0..<0.25:
@@ -47,7 +47,7 @@ struct LiterView: View {
                         .font(.system(size: 16))
                         .foregroundColor(.textFont)
                     
-                    Text("\(literDrink, specifier: "%.1f") liter / \(waterIntake, specifier: "%.1f") liter")
+                    Text("\(literDrink, specifier: "%.1f") liter / \(literNeed, specifier: "%.1f") liter")
                         .font(.system(size: 28))
                         .foregroundColor(.tittleFont).bold()
                 }.padding(.bottom , 90)
@@ -61,14 +61,14 @@ struct LiterView: View {
                         .foregroundColor(.lightSkyBlue)
 
                     Circle()
-                        .trim(from: 0.0 , to: CGFloat(literDrink / waterIntake))
+                        .trim(from: 0.0 , to: CGFloat(literDrink / literNeed))
                         .stroke(style: StrokeStyle(lineWidth: 40, lineCap: .round))
                         .frame(width: 300 , height: 300)
                         .rotationEffect(.degrees(-90))
                         .foregroundStyle(LinearGradient(gradient: Gradient(colors:[.skyBlue]), startPoint: .topLeading , endPoint: .bottomTrailing))
                         .animation(.linear(duration: 0.3)) // Animate the progress
 
-                    let emojiAngle = 360 * (literDrink / waterIntake) - 90
+                    let emojiAngle = 360 * (literDrink / literNeed) - 90
                     let emojiOffsetX = 150 * cos(emojiAngle * .pi / 180)
                     let emojiOffsetY = 150 * sin(emojiAngle * .pi / 180)
 
@@ -121,7 +121,7 @@ struct LiterView: View {
                                 Spacer()
                                 
                                 Button {
-                                    if literDrink < waterIntake {
+                                    if literDrink < literNeed {
                                         literDrink += 0.1
                                     }
                                 } label: {
@@ -133,9 +133,9 @@ struct LiterView: View {
 
                                         Image(systemName: "plus")
                                             .padding(10)
-                                            .foregroundColor(literDrink >= waterIntake ? .darkGrey : .skyBlue).bold()
+                                            .foregroundColor(literDrink >= literNeed ? .darkGrey : .skyBlue).bold()
                                     }
-                                }.disabled(literDrink >= waterIntake)
+                                }.disabled(literDrink >= literNeed)
                                 Spacer()
                             }
                             .padding()
@@ -151,7 +151,7 @@ struct LiterView: View {
             
             
             
-            CupsView(cups: .constant(20))
+            CupsView(cupsNeed: cupSend)
                 .tag(1)
             
             
@@ -183,7 +183,7 @@ struct LiterView: View {
 }
 
 #Preview {
-    LiterView(waterIntake: .constant(2.1))
+    LiterView(literNeed: 2.1, cupSend: 10)
 }
 
 

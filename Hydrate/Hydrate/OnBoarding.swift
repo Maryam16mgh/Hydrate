@@ -3,51 +3,45 @@
 import SwiftUI
 
 struct OnBoarding: View {
-    @State private var weight: String = ""// Define a state variable to hold the entered body weight
-    @State public var startHour: String = ""
-    @State public var endHour: String = ""
-    @State private var isTextFieldEmpty: Bool = true // Track whether the TextField is empty or not
-    @State private var showNextPage: Bool = false // Track whether to show the next onboarding page
-    @State var waterIntake: Double = 0
-    // Track the calculated water intake based on weight
-    @State var cups: Int = 0
+    @State private var weight: String = ""
+    @State private var isTextFieldEmpty: Bool = true
+    @State private var showNextPage: Bool = false
+    @State private var waterIntake: Double = 0
+    @State private var cups: Int = 0
     
     private func calculateWaterIntake() {
-            if let weightValue = Double(weight) {
-                waterIntake = weightValue * 0.03
-                cups = (Int)(waterIntake * 4.22675284)
-            } else {
-                waterIntake = 0.0
-                
-            }
+        if let weightValue = Double(weight) {
+            waterIntake = weightValue * 0.03
+            cups = (Int)(waterIntake * 4.22675284)
+        } else {
+            waterIntake = 0.0
         }
+    }
+    
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading, spacing: 10) { // Align elements to the left and specify spacing
+            VStack(alignment: .leading, spacing: 10) {
                 if showNextPage {
-                    // Show the next onboarding page
                     Text("This is the next onboarding page")
                         .padding()
-                    // Add any other content for the next onboarding page here
-                    // ...
                 } else {
-                    // Show the initial onboarding view
-                    Image("Logo") // Assuming "Logo" is the name of your image asset
+                    Image("Logo")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 100, height: 100) // Adjust size as needed
+                        .frame(width: 100, height: 100)
                         .padding(.init(top: 10, leading: 5, bottom: 5, trailing: 5))
                     Text("iHydrate")
                         .font(.title)
                         .fontWeight(.bold)
-                        .foregroundColor(Color("tittleFont")) // Set font color
-                        .padding(.bottom, 5) // Add some padding between title and body
+                        .foregroundColor(Color("tittleFont"))
+                        .padding(.bottom, 5)
                         .padding(.init(top: 10, leading: 10, bottom: 5, trailing: 3))
                     Text("Start with iHydrate to record and track your water intake daily based on your needs and stay hydrated")
                         .font(.body)
-                        .foregroundColor(Color("textFont")) // Set font color
-                        .multilineTextAlignment(.leading) // Align text to the left
+                        .foregroundColor(Color("textFont"))
+                        .multilineTextAlignment(.leading)
                         .padding(.init(top: 10, leading: 10, bottom: 5, trailing: 3))
+                    
                     ZStack{
                         Rectangle()
                             .foregroundColor(.lightGrey)
@@ -60,7 +54,7 @@ struct OnBoarding: View {
                             TextField("weight", text: $weight)
                                 .keyboardType(.decimalPad)
                                 .onChange(of: weight) { newValue in
-                                    calculateWaterIntake() // Call the function here
+                                    calculateWaterIntake()
                                     isTextFieldEmpty = newValue.isEmpty
                                 }
                             Text("Kg")
@@ -68,166 +62,227 @@ struct OnBoarding: View {
                         }
                     }.padding(10)
                     Spacer()
-                    NavigationLink(destination: self.createNextPage()) {
-                        Text("Calculate Now") // Text inside the button
-                            .padding(.init(top: 16, leading: 120, bottom: 16, trailing: 120)) // Add some padding around the text
-                            .background(isTextFieldEmpty ? Color.darkGrey : Color.skyBlue) // Change the background color based on TextField
-                            .foregroundColor(Color.white) // Text color of the button
-                            .cornerRadius(12) // Corner radius of the button
+                    NavigationLink(destination: createNextPage(waterIntake: waterIntake)) {
+                        Text("Calculate Now")
+                            .padding(.init(top: 16, leading: 120, bottom: 16, trailing: 120))
+                            .background(isTextFieldEmpty ? Color.darkGrey : Color.skyBlue)
+                            .foregroundColor(Color.white)
+                            .cornerRadius(12)
                     }
-                    .frame(width: 358, height: 50) // Fixed width and height
+                    .frame(width: 358, height: 50)
                     .padding(.vertical)
-                    .disabled(isTextFieldEmpty) // Disable the button if the TextField is empty
+                    .disabled(isTextFieldEmpty)
                 }
             }
-            .padding(17) // Add padding around the VStack
+            .padding(17)
             .navigationBarHidden(true)
         }
     }
     
-   
-    
-    // Function to create the next onboarding page
-    private func createNextPage() -> some View {
+    private func createNextPage(waterIntake: Double) -> some View {
         return AnyView(
             VStack(alignment: .leading, spacing: 5) {
-                
                 Text("The needed water intake")
                     .font(.title)
                     .fontWeight(.bold)
-                    .foregroundColor(Color("tittleFont")) // Set font color
-                    .padding(.bottom, 5) // Add some padding between title and body
-                            .padding(.init(top: 100, leading: 10, bottom: 5, trailing: 3)) // Move the content down
-                Text("Your body needs [specific number] liters of hydration, which is equivalent to [specific number] cups")
+                    .foregroundColor(Color("tittleFont"))
+                    .padding(.bottom, 5)
+                    .padding(.top, 100)
+                    .padding(.leading, 10)
+                Text("Your body needs \(waterIntake, specifier: "%.1f") liters of hydration, which is equivalent to \(Int(waterIntake * 4.22675284)) cups")
                     .font(.body)
-                    .foregroundColor(Color("textFont")) // Set font color
-                    .multilineTextAlignment(.leading) // Align text to the left
-                            .padding(.init(top: 10, leading: 10, bottom: 5, trailing: 3))
+                    .foregroundColor(Color("textFont"))
+                    .multilineTextAlignment(.leading)
+                    .padding(.init(top: 10, leading: 10, bottom: 5, trailing: 3))
                 
                 HStack {
-                                    // First Rectangle with Image
-                                    ZStack {
-                                        Rectangle()
-                                            .foregroundColor(.lightGrey)
-                                            .cornerRadius(10)
-                                            .frame(width: 171, height: 159)
-                                        
-                                        Image("cups")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(width: 42, height: 61)
-                                
-                                        Text("\(cups)")
-                                            .padding(.top, 100)
-                                            .padding(.leading, -20)
-                                        Text("Cups")
-                                        .font(.caption)
-                                        .foregroundColor(.textFont)
-                                        .padding(.top, 100)
-                                        .padding(.leading, 23)
-                                    }
-                                    
-                                    // Second Rectangle with Image
-                                    ZStack {
-                                        Rectangle()
-                                            .foregroundColor(.lightGrey)
-                                            .cornerRadius(10)
-                                            .frame(width: 171, height: 159)
-                                        
-                                        Image("liter")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(width: 42, height: 61)
-                                        Text("\(waterIntake, specifier: "%.1f")")
-                                    .padding(.top, 100)
-                                    .padding(.leading, -20)
-                                        Text("L")
-                                        .font(.caption)
-                                        .foregroundColor(.textFont)
-                                        .padding(.top, 100)
-                                        .padding(.leading, 20)
-                                        
-                                    }
-                                }
-                Spacer()
-                // Button to navigate to the third onboarding view
-                   NavigationLink(destination: ThirdOnboardingView()) { // Replace ThirdOnboardingView with your actual third onboarding view
-                       Text("Set Notifications") // Text inside the button
-                           .padding(.init(top: 16, leading: 120, bottom: 16, trailing: 120)) // Add some padding around the text
-                           .background(Color.skyBlue) // Background color of the button
-                           .foregroundColor(Color.white) // Text color of the button
-                           .cornerRadius(12) // Corner radius of the button
-                           .frame(width: 358, height: 50) // Fixed width and height
-                           .padding(.vertical)
-                   }
-               }
-        )
-    }
-}
-// Function to create the next onboarding page
- private func ThirdOnboardingView() -> some View {
-    return AnyView(
-        VStack {
-            Text("Notification Preferences")
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(Color("tittleFont")) // Set font color
-                .padding(.bottom, 5)
-            Text("The start and End hour")
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(Color("tittleFont")) // Set font color
-                .padding(.bottom, 5) // Add some padding between title and body
-                        .padding(.init(top: 100, leading: 10, bottom: 5, trailing: 3)) // Move the content down
-            Text("Specify the start and end date to receive the notifications ")
-                .font(.body)
-                .foregroundColor(Color("textFont")) // Set font color
-                .multilineTextAlignment(.leading) // Align text to the left
-                        .padding(.init(top: 10, leading: 10, bottom: 5, trailing: 3))
-            VStack(spacing: 0) {
-                ZStack {
-                    Rectangle()
-                        .foregroundColor(.lightGrey)
-                        .cornerRadius(10)
-                        .frame(width: 350, height: 50)
+                    ZStack {
+                        Rectangle()
+                            .foregroundColor(.lightGrey)
+                            .cornerRadius(10)
+                            .frame(width: 171, height: 159)
+                        
+                        Image("cups")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 42, height: 61)
+                        Text("\(cups)")
+                            .padding(.top, 100)
+                            .padding(.leading, -20)
+                        Text("Cups")
+                            .font(.caption)
+                            .foregroundColor(.textFont)
+                            .padding(.top, 100)
+                            .padding(.leading, 23)
+                    }
                     
-                    HStack {
-                        Text("start hour")
-                            .padding(.horizontal, 40)
-                        TextField("00:00 AM", text: .constant(""))
+                    ZStack {
+                        Rectangle()
+                            .foregroundColor(.lightGrey)
+                            .cornerRadius(10)
+                            .frame(width: 171, height: 159)
+                        
+                        Image("liter")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 42, height: 61)
+                        Text("\(waterIntake, specifier: "%.1f")")
+                            .padding(.top, 100)
+                            .padding(.leading, -20)
+                        Text("L")
+                            .font(.caption)
+                            .foregroundColor(.textFont)
+                            .padding(.top, 100)
+                            .padding(.leading, 20)
                     }
                 }
                 
-                ZStack {
-                    Rectangle()
-                        .frame(height: 1)
-                        .foregroundColor(.gray) // Separator
-                        .frame(width: 330)
-                    
-                    Rectangle()
-                        .foregroundColor(.clear)
-                        .frame(width: 350, height: 50)
-                } .offset(y: -25)
-                
-                ZStack {
-                    Rectangle()
-                        .foregroundColor(.lightGrey)
-                        .cornerRadius(10)
-                        .frame(width: 350, height: 50)
-                    
-                    HStack {
-                        Text("end hour")
-                            .padding(.horizontal, 40)
-                        TextField("00:00 PM", text: .constant(""))
-                    }
-                }.offset(y: -50)
+                Spacer()
+                NavigationLink(destination: ThirdOnboardingView(waterIntake: waterIntake)) {
+                    Text("Set Notifications")
+                        .padding()
+                        .frame(width: 358, height: 50)
+                        .background(Color.skyBlue)
+                        .foregroundColor(.white)
+                        .cornerRadius(12)
+                        .padding(.vertical)
+                }
             }
-            
-            
-            
-        }
-    )
+        )
+    }
+    
+    // Function to create the next onboarding page
+    private func ThirdOnboardingView(waterIntake: Double) -> some View {
+        let buttonTitles = ["15", "30", "60", "90", "2", "3", "4", "5"]
+        
+        return AnyView(
+            VStack {
+                Text("Notification Preferences")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color("tittleFont"))
+                    .padding(.bottom, 5)
+                Text("The start and End hour")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color("tittleFont"))
+                    .padding(.bottom, 5)
+                    .padding(.top, 100)
+                    .padding(.leading, 10)
+                Text("Specify the start and end date to receive the notifications ")
+                    .font(.body)
+                    .foregroundColor(Color("textFont"))
+                    .multilineTextAlignment(.leading)
+                    .padding(.init(top: 10, leading: 10, bottom: 5, trailing: 3))
+                VStack(spacing: 0) {
+                    ZStack {
+                        Rectangle()
+                            .foregroundColor(.lightGrey)
+                            .cornerRadius(10)
+                            .frame(width: 350, height: 50)
+                        
+                        HStack {
+                            Text("start hour")
+                                .padding(.horizontal, 40)
+                            TextField("00:00 AM", text: .constant(""))
+                        }
+                    }
+                    
+                    ZStack {
+                        Rectangle()
+                            .frame(height: 1)
+                            .foregroundColor(.gray)
+                            .frame(width: 330)
+                        
+                        Rectangle()
+                            .foregroundColor(.clear)
+                            .frame(width: 350, height: 50)
+                    } .offset(y: -25)
+                    
+                    ZStack {
+                        Rectangle()
+                            .foregroundColor(.lightGrey)
+                            .cornerRadius(10)
+                            .frame(width: 350, height: 50)
+                        
+                        HStack {
+                            Text("end hour")
+                                .padding(.horizontal, 40)
+                            TextField("00:00 PM", text: .constant(""))
+                        }
+                    }.offset(y: -50)
+                }
+                Text("Notification interval")
+                    .fontWeight(.bold)
+                    .foregroundColor(Color("tittleFont"))
+                    .multilineTextAlignment(.leading)
+                Text("How often would you like to receive notifications within the specified time interval ")
+                    .font(.body)
+                    .foregroundColor(Color("textFont"))
+                    .multilineTextAlignment(.leading)
+                ScrollView {
+                    VStack(spacing: 16) {
+                        HStack(spacing: 16) {
+                            ForEach(buttonTitles[0..<4], id: \.self) { title in
+                                Button(action: {
+                                    // Action to perform when the button is tapped
+                                }) {
+                                    VStack {
+                                        Text(title)
+                                            .foregroundColor(.skyBlue)
+                                            .font(.headline.bold())
+                                        Text("Mins")
+                                            .foregroundColor(.tittleFont)
+                                            .font(.subheadline)
+                                    }
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.lightGrey)
+                                    .cornerRadius(8)
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                            }
+                        }
+                        
+                        HStack(spacing: 16) {
+                            ForEach(buttonTitles[4..<8], id: \.self) { title in
+                                Button(action: {
+                                    // Action to perform when the button is tapped
+                                }) {
+                                    VStack {
+                                        Text(title)
+                                            .foregroundColor(.skyBlue)
+                                            .font(.headline.bold())
+                                        Text("Hours")
+                                            .foregroundColor(.tittleFont)
+                                            .font(.subheadline)
+                                    }
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.lightGrey)
+                                    .cornerRadius(8)
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                            }
+                        }
+                    }
+                }
+                
+                NavigationLink(destination: LiterView(literNeed: waterIntake, cupSend: cups)) {
+                    Text("Start")
+                        .padding()
+                        .frame(width: 200, height: 50)
+                        .background(Color.skyBlue)
+                        .foregroundColor(.white)
+                        .cornerRadius(12)
+                        .padding(.top, 20)
+                }
+                .padding() // Add padding to the entire VStack
+            }
+        )
+    }
 }
+
 struct OnBoarding_Previews: PreviewProvider {
     static var previews: some View {
         OnBoarding()

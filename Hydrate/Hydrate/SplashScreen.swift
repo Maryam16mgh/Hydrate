@@ -4,15 +4,43 @@
 //
 //  Created by Maryam Mohammad on 03/08/1445 AH.
 //
-
 import SwiftUI
 
+
+
 struct SplashScreen: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+@State var isActive = false
+@State var size = 0.8
+@State var opacity = 0.5
+
+var body: some View {
+    
+    if isActive{
+        OnBoarding()
+    } else {
+        ZStack{
+            Image("Logo")
+                .resizable()
+                .frame(width: 96 , height: 84)
+                .scaleEffect(size)
+                .opacity(opacity)
+                .onAppear { withAnimation(.easeIn(duration: 2.0)){
+                    self.size = 0.9
+                    self.opacity = 1.9
+                }
+                }
+        }
+        .onAppear{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.7){
+                self.isActive = true
+            }
+        }
+        
     }
+    
+}
 }
 
 #Preview {
-    SplashScreen()
+SplashScreen()
 }
