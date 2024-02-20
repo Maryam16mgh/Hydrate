@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		18911AC22B7DFBB000A72585 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18911AC12B7DFBB000A72585 /* Media.xcassets */; };
+		181731292B83449D00277BDB /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181731282B83449D00277BDB /* PageControl.swift */; };
+		18911AC22B7DFBB000A72585 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18911AC12B7DFBB000A72585 /* Assets.xcassets */; };
 		18911AD22B81EF9100A72585 /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18911AD12B81EF9100A72585 /* PageControl.swift */; };
 		18A2BE042B7B528C00C947DD /* HydrateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A2BE032B7B528C00C947DD /* HydrateApp.swift */; };
 		18A2BE062B7B528C00C947DD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A2BE052B7B528C00C947DD /* ContentView.swift */; };
@@ -51,7 +52,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		18911AC12B7DFBB000A72585 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		181731282B83449D00277BDB /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
+		18911AC12B7DFBB000A72585 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18911AD12B81EF9100A72585 /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
 		18A2BE002B7B528C00C947DD /* Hydrate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hydrate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18A2BE032B7B528C00C947DD /* HydrateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrateApp.swift; sourceTree = "<group>"; };
@@ -139,7 +141,8 @@
 				18A2BE292B7B535300C947DD /* SplashScreen.swift */,
 				18A2BE2F2B7B53CF00C947DD /* LiterView.swift */,
 				18A2BE332B7B53F300C947DD /* CupsView.swift */,
-				18911AC12B7DFBB000A72585 /* Media.xcassets */,
+				181731282B83449D00277BDB /* PageControl.swift */,
+				18911AC12B7DFBB000A72585 /* Assets.xcassets */,
 				18A2BE1B2B7B528E00C947DD /* Preview Content */,
 			);
 			path = "Hydrate Watch App";
@@ -243,7 +246,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18911AC22B7DFBB000A72585 /* Media.xcassets in Resources */,
+				18911AC22B7DFBB000A72585 /* Assets.xcassets in Resources */,
 				18A2BE1D2B7B528E00C947DD /* Preview Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -271,6 +274,7 @@
 			files = (
 				18A2BE342B7B53F300C947DD /* CupsView.swift in Sources */,
 				18A2BE2A2B7B535300C947DD /* SplashScreen.swift in Sources */,
+				181731292B83449D00277BDB /* PageControl.swift in Sources */,
 				18A2BE302B7B53CF00C947DD /* LiterView.swift in Sources */,
 				18A2BE182B7B528E00C947DD /* ContentView.swift in Sources */,
 				18A2BE162B7B528E00C947DD /* HydrateApp.swift in Sources */,

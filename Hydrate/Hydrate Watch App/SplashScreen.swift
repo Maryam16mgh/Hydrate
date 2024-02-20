@@ -30,7 +30,7 @@ var body: some View {
                 }
         }
         .onAppear{
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.7){
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0){
                 self.isActive = true
             }
         }
