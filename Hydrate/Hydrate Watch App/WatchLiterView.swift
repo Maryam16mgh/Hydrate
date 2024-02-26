@@ -6,21 +6,42 @@
 //
 
 import SwiftUI
-import WatchKit
+import WatchConnectivity
+
+class SessionDelegate: NSObject, WCSessionDelegate {
+    var waterIntake: Double = 0
+    
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        
+    }
+    
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        print("Test connection")
+        if let receivedWaterIntake = message["waterIntake"] as? Double {
+            DispatchQueue.main.async {
+                self.waterIntake = receivedWaterIntake
+            }
+        } else {
+            print("Failed to receive water intake")
+        }
+    }
+}
+
+
+
+
 
 struct LiterView: View {
-//    @State private var selectedTabIndex = 0
+
     
-    var literNeed: Double = 2.9
     @State var literDrink = 0.0
+       @State private var isAnimating = false
+       @State private var sessionDelegate = SessionDelegate()
     
-//    var cupsNeed: Int
-    @State var cupsDrink = 0
-//    var cupSend: Int
-    @State private var isAnimating = false
+   
     
      var emoji: String {
-            let emojiProgress = literDrink / literNeed
+         let emojiProgress = literDrink / sessionDelegate.waterIntake
 
             switch emojiProgress {
             case 0..<0.25:
@@ -40,7 +61,7 @@ struct LiterView: View {
     
     
     var body: some View {
-        TabView/*(selection: $selectedTabIndex)*/{
+        TabView{
             
             VStack{
                 
@@ -49,7 +70,7 @@ struct LiterView: View {
                         Text("\(literDrink , specifier: "%.1f")")
                             .font(.system(size: 25))
                             .foregroundColor(.tittleFont).bold()
-                        Text("\(literNeed, specifier: "%.1f") liter")
+                        Text("\(sessionDelegate.waterIntake, specifier: "%.1f") liter")
                             .font(.system(size: 15))
                             .foregroundColor(.textFont)
                     }.opacity(emoji == "🥳" ? 0 : 1)
@@ -60,7 +81,7 @@ struct LiterView: View {
                         .foregroundColor(.lightSkyBlue)
                     
                     Circle()
-                        .trim(from: 0.0 , to: CGFloat(literDrink / literNeed))
+                        .trim(from: 0.0 , to: CGFloat(literDrink / sessionDelegate.waterIntake))
                         .stroke(style: StrokeStyle(lineWidth: 30, lineCap: .round))
                         .frame(width: 117 , height: 117)
                         .rotationEffect(.degrees(-90))
@@ -69,7 +90,7 @@ struct LiterView: View {
                     
                     let radius: CGFloat = 60
                     
-                    let emojiAngle = 360 * (literDrink / literNeed) - 90
+                    let emojiAngle = 360 * (literDrink / sessionDelegate.waterIntake) - 90
                     let emojiOffsetX = radius * cos(emojiAngle * .pi / 180)
                     let emojiOffsetY = radius * sin(emojiAngle * .pi / 180)
                     
@@ -114,7 +135,10 @@ struct LiterView: View {
                                 }
                             }
                         ))
+                        .multilineTextAlignment(.center) 
+                        .background(Color.clear)
                         .textFieldStyle(.plain)
+
 
 
 
@@ -122,7 +146,7 @@ struct LiterView: View {
                         Spacer()
                         
                         Button {
-                            if literDrink < literNeed {
+                            if literDrink < sessionDelegate.waterIntake {
                                 literDrink += 0.1
                             }
                         } label: {
@@ -134,13 +158,13 @@ struct LiterView: View {
                                 
                                 Image(systemName: "plus")
                                     .padding(10)
-                                    .foregroundColor(literDrink >= literNeed ? .darkGrey : .skyBlue).bold()
+                                    .foregroundColor(literDrink >= sessionDelegate.waterIntake ? .darkGrey : .skyBlue).bold()
                             }
-                        }.disabled(literDrink >= literNeed)
+                        }.disabled(literDrink >= sessionDelegate.waterIntake)
                             .buttonStyle(.plain)
                         Spacer()
                     }
-                    //                    .padding()
+                   
                 }
                 
                 
@@ -161,26 +185,22 @@ struct LiterView: View {
             
             
             
+        } .onAppear {
+            if WCSession.isSupported() {
+                let session = WCSession.default
+                session.delegate = self.sessionDelegate
+                session.activate()
+            }
         }
-            
-            
-//        }.tabViewStyle(PageTabViewStyle())
-//            .indexViewStyle(.page(backgroundDisplayMode: .interactive))
-//            .overlay(
-//                VStack {
-//                    Spacer()
-//                    PageControl(numberOfPages: 2, currentPage: selectedTabIndex, pageIndicatorTintColor: selectedTabIndex == 0 ? .lightGrey : .skyBlue, currentPageIndicatorTintColor: selectedTabIndex == 0 ? .skyBlue : .lightGrey)
-//                        .padding(.bottom, 10)
-//                        .frame(maxWidth: .infinity)
-//                        .background(Color.clear)
-//                }
-//                .edgesIgnoringSafeArea(.bottom)
-//            )
        
                 
         
     }
 }
+
+
+
+
 
 #Preview {
     LiterView()

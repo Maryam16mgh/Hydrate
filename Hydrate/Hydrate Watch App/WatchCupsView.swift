@@ -6,18 +6,32 @@
 //
 
 import SwiftUI
+import WatchConnectivity
+
+
+
 
 struct CupsView: View {
-     var cupsNeed: Int = 20
+    @State var cups = 0
     @State var cupsDrink = 0
     
     @State private var isImage1Visible = Array(repeating: true, count: 20)
+    
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        if let cups = message["cups"] as? Int {
+            
+            DispatchQueue.main.async {
+               
+                self.cups = cups
+            }
+        }
+    }
     
     var body: some View {
         VStack {
 
                 
-                Text("\(cupsDrink) cups / \(cupsNeed) cups")
+                Text("\(cupsDrink) cups / \(cups) cups")
                     .font(.system(size: 18))
                     .foregroundColor(.tittleFont).bold()
                     .padding(.top , -25)
@@ -26,7 +40,7 @@ struct CupsView: View {
             
             ScrollView {
                 LazyVGrid(columns: Array(repeating: GridItem(), count: 1), spacing: 10) {
-                    ForEach(0..<cupsNeed, id: \.self) { index in
+                    ForEach(0..<cups, id: \.self) { index in
                         Button(action: {
                             if isImage1Visible[index] {
                                 isImage1Visible[index].toggle()
@@ -58,6 +72,15 @@ struct CupsView: View {
                 }
             }.scrollIndicators(.hidden)
         }
+        
+        .onAppear {
+                    if WCSession.isSupported() {
+                        let session = WCSession.default
+                        let sessionDelegate = SessionDelegate()
+                        session.delegate = sessionDelegate
+                        session.activate()
+                    }
+                }
     }
 }
 
