@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WatchConnectivity
 
 struct CupsView: View {
      var cupsNeed: Int
@@ -37,6 +38,8 @@ struct CupsView: View {
                                 isImage1Visible[index].toggle()
                                 cupsDrink -= 1
                             }
+                            
+                            
                         }) {
                             if isImage1Visible[index] {
                                 Image("waterEmpty")

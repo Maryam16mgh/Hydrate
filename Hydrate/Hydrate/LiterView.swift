@@ -16,6 +16,13 @@ struct LiterView: View {
 //    var cupsNeed: Int
     @State var cupsDrink = 0
     var cupSend: Int 
+    
+    private func hideKeyboard() {
+         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+         
+     }
+    
+    
     @State private var isAnimating = false
     
      var emoji: String {
@@ -110,13 +117,17 @@ struct LiterView: View {
                                     set: {
                                         if let value = Double($0) {
                                             literDrink = value
+                                           
                                         }
+                                        
                                     }
+                                    
                                 ))
 //                                .textFieldStyle(RoundedBorderTextFieldStyle())
                                 .keyboardType(.decimalPad)
                                 .font(.system(size: 34)).bold()
                                 .multilineTextAlignment(.center)
+                                
                                 
                                 Spacer()
                                 
@@ -177,6 +188,8 @@ struct LiterView: View {
         Text("Swipe right for cups calculating")
             .font(.system(size: 11))
             .foregroundColor(.textFont)
+        
+            .navigationBarBackButtonHidden()
                 
         //
     }

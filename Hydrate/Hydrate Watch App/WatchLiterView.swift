@@ -9,7 +9,7 @@ import SwiftUI
 import WatchConnectivity
 
 class SessionDelegate: NSObject, WCSessionDelegate {
-    var waterIntake: Double = 0
+    var waterIntake: Double = 3.1
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         
@@ -31,7 +31,8 @@ class SessionDelegate: NSObject, WCSessionDelegate {
 
 
 
-struct LiterView: View {
+
+struct WatchLiterView: View {
 
     
     @State var literDrink = 0.0
@@ -177,7 +178,7 @@ struct LiterView: View {
             
             
             
-            CupsView()
+            WatchCupsView()
                 .tag(1)
             
             
@@ -203,5 +204,5 @@ struct LiterView: View {
 
 
 #Preview {
-    LiterView()
+    WatchLiterView()
 }

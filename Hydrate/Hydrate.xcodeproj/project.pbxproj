@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		181731292B83449D00277BDB /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181731282B83449D00277BDB /* PageControl.swift */; };
 		18911AC22B7DFBB000A72585 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18911AC12B7DFBB000A72585 /* Assets.xcassets */; };
 		18911AD22B81EF9100A72585 /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18911AD12B81EF9100A72585 /* PageControl.swift */; };
 		18A2BE042B7B528C00C947DD /* HydrateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A2BE032B7B528C00C947DD /* HydrateApp.swift */; };
@@ -22,9 +21,11 @@
 		18A2BE2A2B7B535300C947DD /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A2BE292B7B535300C947DD /* SplashScreen.swift */; };
 		18A2BE2C2B7B538D00C947DD /* OnBoarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A2BE2B2B7B538D00C947DD /* OnBoarding.swift */; };
 		18A2BE2E2B7B53BB00C947DD /* LiterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A2BE2D2B7B53BB00C947DD /* LiterView.swift */; };
-		18A2BE302B7B53CF00C947DD /* LiterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A2BE2F2B7B53CF00C947DD /* LiterView.swift */; };
+		18A2BE302B7B53CF00C947DD /* WatchLiterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A2BE2F2B7B53CF00C947DD /* WatchLiterView.swift */; };
 		18A2BE322B7B53E400C947DD /* CupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A2BE312B7B53E400C947DD /* CupsView.swift */; };
-		18A2BE342B7B53F300C947DD /* CupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A2BE332B7B53F300C947DD /* CupsView.swift */; };
+		18A2BE342B7B53F300C947DD /* WatchCupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A2BE332B7B53F300C947DD /* WatchCupsView.swift */; };
+		18A32DDB2B85DFD400BFA8EC /* IosAppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A32DDA2B85DFD400BFA8EC /* IosAppModel.swift */; };
+		18A32DDD2B85EC5900BFA8EC /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A32DDC2B85EC5900BFA8EC /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +53,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		181731282B83449D00277BDB /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
 		18911AC12B7DFBB000A72585 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18911AD12B81EF9100A72585 /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
 		18A2BE002B7B528C00C947DD /* Hydrate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hydrate.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,9 +68,12 @@
 		18A2BE292B7B535300C947DD /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		18A2BE2B2B7B538D00C947DD /* OnBoarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoarding.swift; sourceTree = "<group>"; };
 		18A2BE2D2B7B53BB00C947DD /* LiterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiterView.swift; sourceTree = "<group>"; };
-		18A2BE2F2B7B53CF00C947DD /* LiterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiterView.swift; sourceTree = "<group>"; };
+		18A2BE2F2B7B53CF00C947DD /* WatchLiterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchLiterView.swift; sourceTree = "<group>"; };
 		18A2BE312B7B53E400C947DD /* CupsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CupsView.swift; sourceTree = "<group>"; };
-		18A2BE332B7B53F300C947DD /* CupsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CupsView.swift; sourceTree = "<group>"; };
+		18A2BE332B7B53F300C947DD /* WatchCupsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchCupsView.swift; sourceTree = "<group>"; };
+		18A32DD72B85D6A400BFA8EC /* Hydrate-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Hydrate-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
+		18A32DDA2B85DFD400BFA8EC /* IosAppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosAppModel.swift; sourceTree = "<group>"; };
+		18A32DDC2B85EC5900BFA8EC /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +122,7 @@
 				18A2BE2D2B7B53BB00C947DD /* LiterView.swift */,
 				18A2BE312B7B53E400C947DD /* CupsView.swift */,
 				18911AD12B81EF9100A72585 /* PageControl.swift */,
+				18A32DDA2B85DFD400BFA8EC /* IosAppModel.swift */,
 				18A2BE072B7B528E00C947DD /* Assets.xcassets */,
 				18A2BE092B7B528E00C947DD /* Preview Content */,
 			);
@@ -136,12 +140,13 @@
 		18A2BE142B7B528E00C947DD /* Hydrate Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				18A32DD72B85D6A400BFA8EC /* Hydrate-Watch-App-Info.plist */,
 				18A2BE152B7B528E00C947DD /* HydrateApp.swift */,
 				18A2BE172B7B528E00C947DD /* ContentView.swift */,
 				18A2BE292B7B535300C947DD /* SplashScreen.swift */,
-				18A2BE2F2B7B53CF00C947DD /* LiterView.swift */,
-				18A2BE332B7B53F300C947DD /* CupsView.swift */,
-				181731282B83449D00277BDB /* PageControl.swift */,
+				18A2BE2F2B7B53CF00C947DD /* WatchLiterView.swift */,
+				18A2BE332B7B53F300C947DD /* WatchCupsView.swift */,
+				18A32DDC2B85EC5900BFA8EC /* Model.swift */,
 				18911AC12B7DFBB000A72585 /* Assets.xcassets */,
 				18A2BE1B2B7B528E00C947DD /* Preview Content */,
 			);
@@ -259,6 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18A2BE2E2B7B53BB00C947DD /* LiterView.swift in Sources */,
+				18A32DDB2B85DFD400BFA8EC /* IosAppModel.swift in Sources */,
 				18911AD22B81EF9100A72585 /* PageControl.swift in Sources */,
 				18A2BE282B7B531F00C947DD /* SplashScreen.swift in Sources */,
 				18A2BE062B7B528C00C947DD /* ContentView.swift in Sources */,
@@ -272,10 +278,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18A2BE342B7B53F300C947DD /* CupsView.swift in Sources */,
+				18A2BE342B7B53F300C947DD /* WatchCupsView.swift in Sources */,
 				18A2BE2A2B7B535300C947DD /* SplashScreen.swift in Sources */,
-				181731292B83449D00277BDB /* PageControl.swift in Sources */,
-				18A2BE302B7B53CF00C947DD /* LiterView.swift in Sources */,
+				18A2BE302B7B53CF00C947DD /* WatchLiterView.swift in Sources */,
+				18A32DDD2B85EC5900BFA8EC /* Model.swift in Sources */,
 				18A2BE182B7B528E00C947DD /* ContentView.swift in Sources */,
 				18A2BE162B7B528E00C947DD /* HydrateApp.swift in Sources */,
 			);
@@ -418,6 +424,7 @@
 				DEVELOPMENT_TEAM = 4RJGH6DGFS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Hydrate-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Hydrate;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = M.Hydrate;
@@ -449,6 +456,7 @@
 				DEVELOPMENT_TEAM = 4RJGH6DGFS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Hydrate-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Hydrate;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = M.Hydrate;

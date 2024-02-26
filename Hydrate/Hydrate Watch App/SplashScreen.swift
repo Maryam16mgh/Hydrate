@@ -15,7 +15,7 @@ struct SplashScreen: View {
 var body: some View {
     
     if isActive{
-        LiterView()
+        WatchLiterView()
     } else {
         ZStack{
             Image("Logo")

@@ -11,8 +11,9 @@ import WatchConnectivity
 
 
 
-struct CupsView: View {
-    @State var cups = 0
+
+struct WatchCupsView: View {
+    @State var cups = 5
     @State var cupsDrink = 0
     
     @State private var isImage1Visible = Array(repeating: true, count: 20)
@@ -86,5 +87,5 @@ struct CupsView: View {
 
 
 #Preview {
-    CupsView()
+    WatchCupsView()
 }
